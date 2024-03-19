@@ -1,35 +1,9 @@
 /*
-const int EN1_PIN = 9; // the Arduino pin connected to the EN1 pin L298N
-const int IN1_PIN = 6; // the Arduino pin connected to the IN1 pin L298N
-const int IN2_PIN = 5; // the Arduino pin connected to the IN2 pin L298N
-const int speed = 255;
-
-void setup() {
-  
-  pinMode(EN1_PIN, OUTPUT);
-  pinMode(IN1_PIN, OUTPUT);
-  pinMode(IN2_PIN, OUTPUT);
-
-}
-
-void loop() {
-  digitalWrite(IN1_PIN, HIGH); // control motor A spins clockwise
-  digitalWrite(IN2_PIN, LOW);  // control motor A spins clockwise
-  
-
-  analogWrite(EN1_PIN, speed); // control the speed
-
-
-}
-*/
-
-/*
  * This arduino code for Railway Crack Detection System Phase 01
  *
  * Includes crack detection, obtaining location and alert system
  */
 #include <TinyGPS++.h>
-//#include <TinyGPS.h>
 #include <SoftwareSerial.h>
 
 
@@ -64,15 +38,19 @@ void setup() {
 
 
 float calculate_distance() {
-  float  duration_us;
+  float  duration_us, temperature_K, distance_cm, sound_speed_air;
   
   // generate 10-microsecond pulse to TRIG pin
   digitalWrite(TRIG_PIN,HIGH);
-  delay(1000);
+  delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
   
-  duration_us=pulseIn(ECHO_PIN, HIGH); // measure duration of pulse from ECHO pin
-  return 0.017 * duration_us; // calculate the distance
+  duration_us = pulseIn(ECHO_PIN, HIGH); // measure duration of pulse from ECHO pin
+  temperature_K = 273.16 + 30; // Surrounding temperature in Kelvin
+  sound_speed_air = 20.05* sqrt(temperature_K); // Speed of sound in air
+  distance_cm = (sound_speed_air*duration_us)/20000;
+  
+  return distance_cm;
 
 }
 
@@ -93,8 +71,8 @@ void location() {
 
 
 void crack_detection(float distance) {
-  if(distance > 50) {
-    //digitalWrite(BUZZER, HIGH);// produce sound
+  if(distance > 6) {
+    digitalWrite(BUZZER, HIGH);// produce sound
     Serial.println("CRACK DETECTED");
     location();
     
