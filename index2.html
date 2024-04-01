@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Crack Detection System</title>
+    <style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 2000px; 
+}
+
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.block {
+    width: 45%;
+    margin: 20px;
+    padding: 10px;
+    border: 3px solid #ccc;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.block h2 {
+    margin-top: 0;
+}
+
+#emergencyButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#emergencyButton:hover {
+    background-color: darkred;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h1>RAILWAY CRACK DETECTION SYSTEM</h1>
+        </div>
+    </nav>
+
+    <div class="block">
+        <h2>LOCATION OF DEVICE</h2>
+        <p>Lattitude: <span id="latitude1">Waiting for data...</span></p>
+        <p>Longitude: <span id="longitude">Waiting for data...</span></p>
+    </div>
+
+    <div class="block">
+        <h2>NUMBER OF CRACKS <br>DETECTED</h2>
+        <p><span id="latitude2">0</span></p>
+    </div>
+
+
+    <button id="emergencyButton" onclick="toggleEmergency()">EMERGENCY RETRACTION</button>
+
+    <script>
+        function toggleEmergency() {
+            var button = document.getElementById("emergencyButton");
+            if (button.innerHTML === "EMERGENCY RETRACTION") {
+                button.innerHTML = "EMERGENCY EXPANSION";
+                button.style.backgroundColor = "green";
+            } else {
+                button.innerHTML = "EMERGENCY RETRACTION";
+                button.style.backgroundColor = "red";
+            }
+        }
+    </script>
+</body>
+</html>
